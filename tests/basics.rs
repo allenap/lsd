@@ -1,10 +1,5 @@
-extern crate assert_cmd;
-extern crate predicates;
-
-use assert_cmd::prelude::*;
-use assert_fs::prelude::*;
-use predicates::prelude::*;
-use std::process::Command;
+mod common;
+use common::*;
 
 #[test]
 fn test_runs_okay() {
@@ -49,12 +44,4 @@ fn test_list_all_populated_directory() {
         .arg(dir.path())
         .assert()
         .stdout(predicate::eq(".\n..\none\ntwo\n"));
-}
-
-fn cmd() -> Command {
-    Command::cargo_bin(env!("CARGO_PKG_NAME")).unwrap()
-}
-
-fn tempdir() -> assert_fs::TempDir {
-    assert_fs::TempDir::new().unwrap()
 }
